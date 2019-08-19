@@ -14,6 +14,7 @@ class App extends Component {
     this.handleTermChange = this.handleTermChange.bind(this);
   }
  
+ //John helped with this part.
   handleTermChange(term) {
       
       let url = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=KekmcRvFtmmogfBuI3KaVohc0iqETCGk&limit=10`;
