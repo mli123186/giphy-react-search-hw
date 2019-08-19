@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import GifList from './GifList';
+import SearchBar from './SearchGif';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      gifs: []
+    };
+    this.handleTermChange = this.handleTermChange.bind(this);
+  }
+ 
+  handleTermChange(term) {
+      
+      let url = `http://api.giphy.com/v1/gifs/search?q=${term}&api_key=KekmcRvFtmmogfBuI3KaVohc0iqETCGk&limit=10`;
+      fetch(url)
+        .then(response => response.json())
+        .then((gifs) => {
+          
+          this.setState({
+            gifs: gifs.data,
+          })
+        }); 
+      };
+
+  
+
+  render() {
+    return (
+      <div className="search">
+        <SearchBar onChange={term => this.handleTermChange(term)} />
+        <GifList gifs={this.state.gifs} />
+      </div>
+    )
+  };
+
+}
+    
+  
+
+
+export default App
